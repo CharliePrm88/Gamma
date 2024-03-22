@@ -1,0 +1,80 @@
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: gateway-server
+  http:
+    multipart:
+      location: /data/upload_tmp
+  config:
+    import: configserver:http://${CONFIG_HOST:localhost}:${CONFIG_PORT:8888}
+  profiles:
+    active:
+      - dev
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+          route-id-prefix: "gamma_"
+          predicates:
+            - name: Path
+              args:
+                pattern: "'/api/'+serviceId+'/**'"
+          filters:
+            - name: RewritePath
+              args:
+                regexp: "'/api/' + serviceId + '/(?<remaining>.*)'"
+                replacement: "'/$\\{remaining}'"
+
+info:
+  component: Gateway Server
+
+endpoints:
+  restart:
+    enabled: false
+  shutdown:
+    enabled: false
+  health:
+    sensitive: false
+
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#zuul:
+#  prefix: /api
+#  sensitive-headers: Cookie,Set-Cookie
+#  add-host-header: true
+#
+#ribbon:
+#  eureka:
+#    enabled: true
+#  ReadTimeout: 60000
+#  ServerListRefreshInterval: 5000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: false
+  fetchRegistry: true
+
+server:
+  port: 8765
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: INFO
+    org.springframework.cloud.gateway: INFO
