@@ -2,6 +2,7 @@ FROM quay.io/keycloak/keycloak:latest as builder
 
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
+ENV KC_DB=mysql
 
 WORKDIR /opt/keycloak
 RUN /opt/keycloak/bin/kc.sh build
@@ -9,18 +10,18 @@ RUN /opt/keycloak/bin/kc.sh build
 FROM quay.io/keycloak/keycloak:latest
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
 
-ENV KC_DB=mysql
-ENV KC_DB_URL=db
+ENV KC_DB_URL_HOST=db
 ENV KC_DB_URL_PORT=3306
 ENV KC_DB_USERNAME=keycloak
 ENV KC_DB_PASSWORD=keycloak
 ENV KC_DB_URL_DATABASE=keycloak
-ENV KC_DB_SCHEMA=public
-ENV KC_HTTP_RELATIVE_PATH=/auth
+ENV KC_DB_SCHEMA=keycloak
 ENV KC_PROXY=edge
 ENV KC_HOSTNAME_STRICT_HTTPS=false
 ENV KC_HOSTNAME_STRICT=false
 ENV KC_HTTP_ENABLED=true
 ENV KC_LOG=gelf
+ENV KC_LOG_GELF_HOST=logstash
+ENV KC_LOG_GELF_PORT=12201
 
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh" "start" "--optimized"]
+ENTRYPOINT "/opt/keycloak/bin/kc.sh" "start" "--optimized"
