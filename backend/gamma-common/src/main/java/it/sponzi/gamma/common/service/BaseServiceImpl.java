@@ -15,10 +15,9 @@ import java.util.regex.Pattern;
 
 public class BaseServiceImpl<T extends BaseDao, M extends BaseDto> implements BaseService<T, M> {
 
-    private final BaseMapper<T, M> mapper;
-    private final BaseRepository<T> repository;
-
-    private final Class<T> daoClazz;
+    protected final BaseMapper<T, M> mapper;
+    protected final BaseRepository<T> repository;
+    protected final Class<T> daoClazz;
 
     public BaseServiceImpl(BaseRepository<T> repository, BaseMapper<T, M> mapper, Class<T> daoClazz) {
         this.repository = repository;
