@@ -42,6 +42,7 @@
         <module>pec</module>
         <module>signer</module>
         <module>storer</module>
+        <module>gamma-common</module>
     </modules>
 
 	<build>
