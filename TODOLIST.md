@@ -1,0 +1,17 @@
+TODO:
+- verificare come configurare logstash (GIORNO 1) DONE
+- verificare come inviare i log a logstash da spring (GIORNO 1) DONE
+- verificare come inviare i log degli altri servizi (GIORNO 1) DONE
+- scrivere il DockerFile di keycloak (GIORNO 1) DONE
+- fare ER e UML dell'applicazione (GIORNO 2) 50%
+- popolare il db con i database (GIORNO 2)
+- sistemare lo scheletro del progetto (GIORNO2)
+- scrivere i dao (GIORNO 3)
+- scrivere i dto (GIORNO 3)
+- scrivere le logiche di business (FILTRI) (GIORNO 3)
+- verificare come fare la signature in java https://www.baeldung.com/java-digital-signature (GIORNO 4)
+- verificare come memorizzare i dati criptati in mysql (GIORNO 4)
+- scrivere la documentazione swagger (GIORNO 4)
+- aggiungere la security (GIORNO 5)
+- fare il frontend con vaadin (GIORNO 5)
+- scrivere i javadoc e i test (GIORNO 6)
