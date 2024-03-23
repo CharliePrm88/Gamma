@@ -55,7 +55,7 @@ public class DigitalSignServiceImpl extends BaseServiceImpl<DigitalSign, Digital
     @Override
     public Mono<byte[]> signDocument(String user, byte[] data) {
         try {
-            DigitalSign dao = digitalSignRepository.findByName(user);
+            DigitalSign dao = digitalSignRepository.findByUser(user);
             Signature sig = Signature.getInstance("SHA256withRSA");
             sig.initSign(dao.getPrivateKey());
             sig.update(data);
@@ -73,7 +73,7 @@ public class DigitalSignServiceImpl extends BaseServiceImpl<DigitalSign, Digital
     @Override
     public Mono<Boolean> verify(String user, byte[] data) {
         try {
-            DigitalSign dao = digitalSignRepository.findByName(user);
+            DigitalSign dao = digitalSignRepository.findByUser(user);
             Signature publicSignature = Signature.getInstance("SHA256withRSA");
             publicSignature.initVerify(dao.getPublicKey());
             publicSignature.update(data);

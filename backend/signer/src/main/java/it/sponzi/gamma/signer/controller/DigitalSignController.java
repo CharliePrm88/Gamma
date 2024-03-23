@@ -6,6 +6,7 @@ import it.sponzi.gamma.common.controller.BaseController;
 import it.sponzi.gamma.signer.dao.DigitalSign;
 import it.sponzi.gamma.signer.dto.DigitalSignDto;
 import it.sponzi.gamma.signer.service.DigitalSignService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ public class DigitalSignController extends BaseController<DigitalSignService, Di
 
     private final DigitalSignService digitalSignService;
 
+    @Autowired
     public DigitalSignController(DigitalSignService service) {
         super(service);
         this.digitalSignService = service;

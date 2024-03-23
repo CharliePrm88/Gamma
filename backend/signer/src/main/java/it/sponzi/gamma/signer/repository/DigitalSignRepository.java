@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DigitalSignRepository extends BaseRepository<DigitalSign> {
 
-    DigitalSign findByName(String name);
+    DigitalSign findByUser(String name);
 }
