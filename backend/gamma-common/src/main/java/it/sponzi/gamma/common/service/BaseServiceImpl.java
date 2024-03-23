@@ -1,12 +1,12 @@
 package it.sponzi.gamma.common.service;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.PathBuilder;
 import it.sponzi.gamma.common.dao.BaseDao;
 import it.sponzi.gamma.common.dto.BaseDto;
 import it.sponzi.gamma.common.repository.BaseRepository;
-import it.sponzi.gamma.common.service.filter.BasePredicateBuilder;
+import it.sponzi.gamma.common.service.filter.QueryService;
+import it.sponzi.gamma.common.service.filter.SearchCriteria;
 import it.sponzi.gamma.common.service.mapper.BaseMapper;
+import it.sponzi.gamma.common.util.ReflectionUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -53,16 +53,16 @@ public class BaseServiceImpl<T extends BaseDao, M extends BaseDto> implements Ba
 
     @Override
     public Flux<M> findAll(String search) {
-        BasePredicateBuilder<T> builder = new BasePredicateBuilder<>();
-        if (search != null) {
-            Pattern pattern = Pattern.compile("(\\w+?)(:|<|>|<=|>=|=)(\\w+?),");
-            Matcher matcher = pattern.matcher(search + ",");
-            while (matcher.find()) {
-                builder.with(matcher.group(1), matcher.group(3), matcher.group(2));
-            }
+        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>|<=|>=|=)(\\w+?),");
+        Matcher matcher = pattern.matcher(search + ",");
+        if (matcher.find()) {
+            QueryService<T> query = new QueryService<>();
+            SearchCriteria criteria = new SearchCriteria(matcher.group(1), matcher.group(3), matcher.group(2));
+            T entity = ReflectionUtils.getInstanceOf(daoClazz);
+            return repository.findAll(query.getCriteriaBySearchCriteria(entity, criteria)).map(mapper::toDto);
+        } else {
+            return repository.findAll().map(mapper::toDto);
         }
-        BooleanExpression exp = builder.build(new PathBuilder<>(daoClazz, "base"));
-        return repository.findAll(exp).map(mapper::toDto);
     }
 
 }

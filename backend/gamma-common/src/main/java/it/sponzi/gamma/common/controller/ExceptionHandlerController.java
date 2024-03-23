@@ -14,4 +14,9 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
         return Mono.just(ResponseEntity.badRequest().body(ex.getMessage()));
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    protected Mono<ResponseEntity<String>> handleIllegalState(IllegalStateException ex) {
+        return Mono.just(ResponseEntity.badRequest().body(ex.getMessage()));
+    }
+
 }
