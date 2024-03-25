@@ -16,10 +16,10 @@ import lombok.Data;
 import java.time.Instant;
 import java.util.Set;
 
-@Table(name = "USER")
-@Entity(name = "User")
+@Table(name = "USERS")
+@Entity(name = "Users")
 @Data
-public class User implements BaseDao {
+public class Users implements BaseDao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user")

@@ -1,5 +1,6 @@
-package it.sponzi.gamma.common.controller;
+package it.sponzi.gamma.common.config;
 
+import it.sponzi.gamma.common.exception.NotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,4 +20,8 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
         return Mono.just(ResponseEntity.badRequest().body(ex.getMessage()));
     }
 
+    @ExceptionHandler(NotFoundException.class)
+    protected Mono<ResponseEntity<Void>> handleNotFound(NotFoundException ex) {
+        return Mono.just(ResponseEntity.notFound().build());
+    }
 }

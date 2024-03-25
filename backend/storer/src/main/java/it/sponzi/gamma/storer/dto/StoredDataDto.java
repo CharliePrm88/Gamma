@@ -8,6 +8,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class StoredDto extends BaseDto {
 
-    protected byte[] file;
+    protected byte[] fileSigned;
 
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class Stored implements BaseDao {
     @SequenceGenerator(allocationSize = 1, initialValue = 1, name = "stored_seq", sequenceName = "seq_stored")
     protected Long id;
 
-    protected byte[] file;
+    @Lob
+    protected byte[] fileSigned;
 
 }
