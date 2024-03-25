@@ -95,7 +95,11 @@ services:
       elasticsearch:
         condition: service_healthy
     networks:
-      - gamma  
+      - gamma
+    environment:
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD="mysecretpassword"
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
 networks:
   gamma:
     driver: bridge

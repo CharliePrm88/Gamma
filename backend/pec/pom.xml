@@ -68,6 +68,11 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>7.4</version>
+        </dependency>
+        <dependency>
             <groupId>it.sponzi</groupId>
             <artifactId>gamma-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>

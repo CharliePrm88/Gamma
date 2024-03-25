@@ -11,7 +11,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 
 @SpringBootApplication
 @EnableWebFlux
-@ComponentScan(basePackages = {"it.sponzi.gamma.storer.dao.service", "it.sponzi.gamma.storer.dao.controller", "it.sponzi.gamma.common.config"})
+@ComponentScan(basePackages = {"it.sponzi.gamma.storer.service", "it.sponzi.gamma.storer.controller", "it.sponzi.gamma.common.config"})
 @EntityScan(basePackages = "it.sponzi.gamma.storer.dao")
 @EnableJpaRepositories(basePackages = "it.sponzi.gamma.storer.repository")
 @Import(SwaggerDocumentationConfiguration.class)
