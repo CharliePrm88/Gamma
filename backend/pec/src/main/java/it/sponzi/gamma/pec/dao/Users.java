@@ -36,7 +36,7 @@ public class Users implements BaseDao {
     @OneToMany(cascade = CascadeType.ALL, targetEntity = Role.class, orphanRemoval = true, fetch = FetchType.LAZY)
     protected Set<Role> roles;
 
-    @JoinColumn(name = "role", referencedColumnName = "Id")
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Role.class, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "pecmail", referencedColumnName = "Id")
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = PecMail.class, orphanRemoval = true, fetch = FetchType.LAZY)
     protected Set<PecMail> pecMails;
 }

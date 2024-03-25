@@ -13,7 +13,7 @@ public class DigitalSignDto extends BaseDto {
     @NotBlank
     protected String user;
 
-    protected PrivateKey privateKey;
+    protected byte[] privateKey;
 
-    protected PublicKey publicKey;
+    protected byte[] publicKey;
 }

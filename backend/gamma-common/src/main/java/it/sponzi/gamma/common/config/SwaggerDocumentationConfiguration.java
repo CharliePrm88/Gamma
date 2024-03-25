@@ -4,10 +4,17 @@ import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.OAuthFlow;
+import io.swagger.v3.oas.models.security.OAuthFlows;
+import io.swagger.v3.oas.models.security.Scopes;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+
+import java.util.List;
 
 /**
  * Springdoc Swagger configuration for documentation of rest api
@@ -18,8 +25,8 @@ import org.springframework.context.annotation.Profile;
 @Profile("!h2-db")
 public class SwaggerDocumentationConfiguration {
 
-//    @Value("${springdoc.swagger-ui.access-token-uri}")
-//    private String tokenUrl;
+    @Value("${springdoc.swagger-ui.oauth.access-token-uri}")
+    private String tokenUrl;
 
     @Value("${info.app.description}")
     private String infoApp;
@@ -27,26 +34,26 @@ public class SwaggerDocumentationConfiguration {
     @Value("${info.app.version}")
     private String versionApp;
 
-//    @Value("${keycloak.auth-server-url}")
-//    private String authUrl;
+    @Value("${keycloak.full-address}")
+    private String authUrl;
 
     public static final String OAUTH_NAME = "spring_oauth";
 
     @Bean
     public OpenAPI api() {
         return new OpenAPI().components(new Components()
-//                        .addSecuritySchemes(OAUTH_NAME, securityScheme()))
-//                .security(List.of(new SecurityRequirement().addList(OAUTH_NAME))
+                        .addSecuritySchemes(OAUTH_NAME, securityScheme()))
+                .security(List.of(new SecurityRequirement().addList(OAUTH_NAME))
         ).info(apiInfo());
     }
 
-//    SecurityScheme securityScheme() {
-//        return new SecurityScheme().type(SecurityScheme.Type.OAUTH2).in(SecurityScheme.In.HEADER)
-//                .description("Oauth2 flow")
-//                .flows(new OAuthFlows().clientCredentials(new OAuthFlow().authorizationUrl(authUrl)
-//                        .refreshUrl(tokenUrl)
-//                        .tokenUrl(tokenUrl).scopes(new Scopes().addString("openid", "openid"))));
-//    }
+    SecurityScheme securityScheme() {
+        return new SecurityScheme().type(SecurityScheme.Type.OAUTH2).in(SecurityScheme.In.HEADER)
+                .description("Oauth2 flow")
+                .flows(new OAuthFlows().clientCredentials(new OAuthFlow().authorizationUrl(authUrl)
+                        .refreshUrl(tokenUrl)
+                        .tokenUrl(tokenUrl).scopes(new Scopes().addString("openid", "openid"))));
+    }
 
     Info apiInfo() {
         return new Info().title(infoApp + " REST CRUD operations API in Spring-Boot 3")

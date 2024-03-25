@@ -1,5 +1,6 @@
 package it.sponzi.gamma.pec.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Valid
 public class PecDto implements Comparable<PecDto> {
 
     protected Long id;

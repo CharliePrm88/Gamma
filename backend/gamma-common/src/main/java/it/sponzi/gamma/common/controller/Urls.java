@@ -5,6 +5,7 @@ public class Urls {
     private Urls(){}
 
     public static final String FIND_ALL = "/";
+    public static final String FIND_ALL_FILTER = "/filter";
     public static final String FIND_BY_ID = "/{id}";
     public static final String CREATE = "/create";
     public static final String UPDATE = "/update";

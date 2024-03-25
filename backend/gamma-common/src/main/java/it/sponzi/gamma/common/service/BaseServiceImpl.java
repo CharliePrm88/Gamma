@@ -2,6 +2,7 @@ package it.sponzi.gamma.common.service;
 
 import it.sponzi.gamma.common.dao.BaseDao;
 import it.sponzi.gamma.common.dto.BaseDto;
+import it.sponzi.gamma.common.exception.NotFoundException;
 import it.sponzi.gamma.common.repository.BaseRepository;
 import it.sponzi.gamma.common.service.filter.QueryService;
 import it.sponzi.gamma.common.service.filter.SearchCriteria;
@@ -27,17 +28,17 @@ public class BaseServiceImpl<T extends BaseDao, M extends BaseDto> implements Ba
 
     @Override
     public Mono<M> findById(Long id) {
-        return repository.findById(id).map(mapper::toDto);
+        return Mono.just(repository.findById(id).orElseThrow(new NotFoundException("Element with id=" + id + " not found"))).map(mapper::toDto);
     }
 
     @Override
     public Flux<M> findAll() {
-        return repository.findAll().map(mapper::toDto);
+        return Flux.fromIterable(repository.findAll()).map(mapper::toDto);
     }
 
     @Override
     public Mono<M> create(M dtoToBeSaved) {
-        Mono<T> daoCreated = repository.save(mapper.toDao(dtoToBeSaved));
+        Mono<T> daoCreated = Mono.just(repository.save(mapper.toDao(dtoToBeSaved)));
         return daoCreated.map(mapper::toDto);
     }
 
@@ -48,7 +49,8 @@ public class BaseServiceImpl<T extends BaseDao, M extends BaseDto> implements Ba
 
     @Override
     public Mono<Void> deleteById(Long id) {
-        return repository.deleteById(id);
+        repository.deleteById(id);
+        return Mono.empty();
     }
 
     @Override
@@ -59,9 +61,9 @@ public class BaseServiceImpl<T extends BaseDao, M extends BaseDto> implements Ba
             QueryService<T> query = new QueryService<>();
             SearchCriteria criteria = new SearchCriteria(matcher.group(1), matcher.group(3), matcher.group(2));
             T entity = ReflectionUtils.getInstanceOf(daoClazz);
-            return repository.findAll(query.getCriteriaBySearchCriteria(entity, criteria)).map(mapper::toDto);
+            return Flux.fromIterable(repository.findAll(query.getCriteriaBySearchCriteria(entity, criteria))).map(mapper::toDto);
         } else {
-            return repository.findAll().map(mapper::toDto);
+            return findAll();
         }
     }
 

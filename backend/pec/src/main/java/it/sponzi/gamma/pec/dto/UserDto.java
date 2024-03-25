@@ -1,6 +1,7 @@
 package it.sponzi.gamma.pec.dto;
 
 import it.sponzi.gamma.common.dto.BaseDto;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Past;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Valid
 public class UserDto extends BaseDto {
 
     @NotBlank
@@ -27,5 +29,6 @@ public class UserDto extends BaseDto {
     @NotEmpty
     protected Set<RoleDto> roles = new HashSet<>();
 
+    @Valid
     protected Set<PecMailDto> pecMails = new HashSet<>();
 }

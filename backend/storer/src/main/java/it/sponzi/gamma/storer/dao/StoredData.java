@@ -10,10 +10,10 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-@Table(name = "STORED")
-@Entity(name = "Stored")
+@Table(name = "STORED_DATA")
+@Entity(name = "StoredData")
 @Data
-public class Stored implements BaseDao {
+public class StoredData implements BaseDao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_stored")

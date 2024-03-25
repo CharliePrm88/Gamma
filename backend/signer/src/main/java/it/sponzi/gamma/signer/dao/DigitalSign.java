@@ -24,8 +24,8 @@ public class DigitalSign implements BaseDao {
 
     protected String user;
 
-    protected PrivateKey privateKey;
+    protected byte[] privateKey;
 
-    protected PublicKey publicKey;
+    protected byte[] publicKey;
 
 }

@@ -6,10 +6,12 @@ import it.sponzi.gamma.pec.dto.PecMailDto;
 import it.sponzi.gamma.pec.repository.PecMailRepository;
 import it.sponzi.gamma.pec.service.PecMailService;
 import it.sponzi.gamma.pec.service.mapper.PecMailMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class PecMailServiceImpl extends BaseServiceImpl<PecMail, PecMailDto> implements PecMailService {
 
     @Autowired

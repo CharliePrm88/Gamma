@@ -34,7 +34,7 @@ public class BaseController<S extends BaseService<T, M>, T extends BaseDao, M ex
     }
 
     @Override
-    @GetMapping(value = Urls.FIND_ALL + "{search}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = Urls.FIND_ALL_FILTER + "/{search}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<M> findAll(@PathVariable String search) {
         return service.findAll(search);
     }
@@ -52,7 +52,7 @@ public class BaseController<S extends BaseService<T, M>, T extends BaseDao, M ex
     }
 
     @Override
-    @DeleteMapping(value = Urls.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = Urls.DELETE)
     public Mono<Void> deleteById(@PathVariable Long id) {
         return service.deleteById(id);
     }

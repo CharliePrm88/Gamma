@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class StoredDto extends BaseDto {
+public class StoredDataDto extends BaseDto {
 
     protected byte[] fileSigned;
 
